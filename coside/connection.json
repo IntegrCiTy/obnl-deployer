@@ -1,0 +1,11 @@
+{
+  "name": "deployer",
+  "queues":{
+    "coside.init": "on_init_message"
+  },
+    "exchanges":{
+    "coside.cosim": {
+      "binding": ["coside.cosim.simu"]
+    }
+  }
+}
