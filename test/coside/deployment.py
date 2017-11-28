@@ -2,8 +2,6 @@ import docker
 import warnings
 from coside.management import Deployer
 
-from ict.protobuf.backend.simulation_pb2 import TEST_A, TEST_B, TEST_C
-
 
 class TestDockerDeployer(Deployer):
     def __init__(self, host="localhost"):
@@ -16,22 +14,26 @@ class TestDockerDeployer(Deployer):
     def list_blocks(self, block=None):
         pass
 
-    def start_block(self, block):
+    def start_block(self, block, inputs, outputs):
         client = docker.from_env()
 
-        if block == TEST_A:
+        # Convert str ot be pass to a shell.
+        str_inputs = str(inputs).replace("'", '"').replace(" ", "")
+        str_outputs = str(outputs).replace("'", '"').replace(" ", "")
+
+        if block == "TEST_A":
             client.containers.run(image="gbasso/integrcity-wrapper:test",
-                                  command=['[\"seta\"]', '[\"ta\"]', "wrapper/test_a.json"],
+                                  command=[str_inputs, str_outputs, "wrapper/test_a.json", "wrapper/obnl_a.json"],
                                   auto_remove=True,
                                   detach=True)
-        elif block == TEST_B:
+        elif block == "TEST_B":
             client.containers.run(image="gbasso/integrcity-wrapper:test",
-                                  command=['', '[\"tb\"]', "wrapper/test_b.json"],
+                                  command=[str_inputs, str_outputs, "wrapper/test_b.json", "wrapper/obnl_b.json"],
                                   auto_remove=True,
                                   detach=True)
-        elif block == TEST_C:
+        elif block == "TEST_C":
             client.containers.run(image="gbasso/integrcity-wrapper:test",
-                                  command=['[\"t1\",\"t2\"]', '[\"setc\"]', "wrapper/test_c.json"],
+                                  command=[str_inputs, str_outputs, "wrapper/test_c.json", "wrapper/obnl_c.json"],
                                   auto_remove=True,
                                   detach=True)
         else:

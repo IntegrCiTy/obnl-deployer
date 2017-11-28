@@ -5,9 +5,9 @@ from ict.connection.node import Node
 
 import google.protobuf.json_format as json_format
 
-from ict.protobuf.default_pb2 import MetaMessage
-from ict.protobuf.backend.simulation_pb2 import *
-from ict.protobuf.backend.db_pb2 import *
+from ict.protobuf.core_pb2 import MetaMessage
+from ict.protobuf.simulation_pb2 import *
+from ict.protobuf.db_pb2 import *
 
 
 class RabbitMQCommunicator(Node, Communicator):
