@@ -65,7 +65,7 @@ class Deployer(object):
     def __init__(self):
         super()
 
-    def start_block(self, block, inputs, outputs):
+    def start_block(self, name, block, inputs, outputs):
         """
 
         :param block: the block(s) the simulator shall run
@@ -130,8 +130,8 @@ class Manager(object):
                 if not self._communicator.is_any(node["block"]):
                     if not self._deployer.list_blocks(node["block"]):
                         inputs = node["inputs"] if "inputs" in node else []
-                        outputs =  node["outputs"] if "outputs" in node else []
-                        self._deployer.start_block(node["block"], inputs, outputs)
+                        outputs = node["outputs"] if "outputs" in node else []
+                        self._deployer.start_block(node["name"], node["block"], inputs, outputs)
                 self._communicator.send_block(node["block"], node["name"])
             else:
                 raise AttributeError("The Block of the Node is not set.")

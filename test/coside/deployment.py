@@ -14,7 +14,7 @@ class TestDockerDeployer(Deployer):
     def list_blocks(self, block=None):
         pass
 
-    def start_block(self, block, inputs, outputs):
+    def start_block(self, name, block, inputs, outputs):
         client = docker.from_env()
 
         # Convert str ot be pass to a shell.
@@ -23,7 +23,7 @@ class TestDockerDeployer(Deployer):
 
         if block == "TEST_A":
             client.containers.run(image="gbasso/integrcity-wrapper:test",
-                                  command=[str_inputs, str_outputs, "wrapper/test_a.json", "wrapper/obnl_a.json"],
+                                  command=[str_inputs, str_outputs, "wrapper/backend.json", "wrapper/obnl.json"],
                                   auto_remove=True,
                                   detach=True)
         elif block == "TEST_B":
