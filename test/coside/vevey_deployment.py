@@ -41,7 +41,7 @@ class VeveyDockerDeployer(Deployer):
             client.containers.run(image="gbasso/integrcity-wrapper:vevey",
                                   command=["heatpump.py",
                                            str_inputs, str_outputs,
-                                           "data/heatpump/backend.json", "data/hp/obnl.json",
+                                           "data/hp/backend.json", "data/hp/obnl.json",
                                            name],
                                   auto_remove=True,
                                   detach=True)
@@ -63,7 +63,7 @@ class VeveyDockerDeployer(Deployer):
                                   detach=True)
         elif block == "THERMAL_NETWORK":
             client.containers.run(image="gbasso/integrcity-wrapper:vevey",
-                                  command=["thermal_netowrk.py",
+                                  command=["thermal_network.py",
                                            str_inputs, str_outputs,
                                            "data/tn/backend.json", "data/tn/obnl.json",
                                            name],
